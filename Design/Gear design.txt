@@ -1,0 +1,65 @@
+﻿Input is escapement (second-hand) shaft rotates once every 60 seconds
+
+Involute three-stage minute-hand reduction:
+
+60 x 48 x 40
+------------
+10 x 12 x 16  gives 60:1 ratio
+
+
+Cycloid two-stage minute-hand reduction 60:1
+
+90 x 64
+-------
+ 8 x 12
+
+
+80 x 75
+-------
+10 x 10
+
+
+100 x 60
+--------
+ 10 x 10
+
+
+ 90 x 80
+--------
+ 12 x 10
+
+
+Cycloid two-stage hour-hand 12:1
+
+32 x 24
+-------
+ 8 x  8
+
+
+ 40 x 30
+--------
+ 10 x  10
+
+Arranging the three main shafts:
+
+Acute Scalene Triangle
+
+Side a = 42.5
+Side b = 50
+Side c = 45
+
+Angle ∠A = 52.831° = 52°49'52" = 0.92208 rad
+Angle ∠B = 69.633° = 69°37'57" = 1.21532 rad
+Angle ∠C = 57.536° = 57°32'11" = 1.0042 rad
+
+
+THE BIG SECRET
+
+Adjusting the pitch of the hour gearset so they can share only two shafts.
+
+48 + 10    x = 29 / 28 = 1.0357142
+------- =  -
+40 + 16    y
+
+
+

@@ -1,0 +1,5 @@
+
+Weight shaft has a small 20mm pulley.  A ratchet couples the pulley to a wheel co-located on the shaft.
+
+The ratchet wheel meshes with a pinion on the hour shaft.
+
