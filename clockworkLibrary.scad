@@ -233,17 +233,17 @@ module drum(
 	 {
 		union() 	// builds the drum with flanges
 		{
-			cylinder(flangeWidth,radius,radius-flangeWidth,$fn=30);
+			cylinder(flangeWidth,radius,radius-flangeWidth);
 	
 			translate([0,0,flangeWidth])
 			cylinder(drumHeight-2*flangeWidth,radius-flangeWidth,radius-flangeWidth);
 	
 			translate([0,0,drumHeight-flangeWidth])
-			cylinder(flangeWidth,radius-flangeWidth,radius,$fn=30);
+			cylinder(flangeWidth,radius-flangeWidth,radius);
 		}
 
 		translate([0,0,-1])
-		cylinder(drumHeight+2,radius-rimWidth,radius-rimWidth,$fn=30);
+		cylinder(drumHeight+2,radius-rimWidth,radius-rimWidth);
 
 	for ( j=[0:1:numberHoles-1]) // adds the holes
 	{

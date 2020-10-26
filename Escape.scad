@@ -13,8 +13,7 @@ include <Hardware.scad>
 //
 escape_axle_posn = [  0,       72];
 pendulum_axle_posn = [  0,  122.28];
-//axle_separation = norm(pendulum_axle_posn - escape_axle_posn);
-axle_separation = 50;
+axle_separation = norm(pendulum_axle_posn - escape_axle_posn);
 // Formula relates distance between centres to the escape wheel overall radius:
 // y = 2*escapeRadius*cos(180/escapeNumberTeeth*toothSpan);
 
@@ -28,32 +27,32 @@ sleeveThickness=2;	// thickness of the sleeves fitting over the pins, or over ea
 tightFit=0.25;			// clearance between hands and sleeves
 clearance=0.25;			// clearance between pin and sleeve, or between sleeve and sleeve
 
-escapeRimWidth=4;         // width of the escapement wheel's rim
+escapeRimWidth=5;           // width of the escapement wheel's rim
 numberSpokes=5;             // number of spokes in the escapement wheel
-spokeWidth=1.25;             // width of the escapement wheel's spokes
+spokeWidth=1.;              // width of the escapement wheel's spokes
 
 // Escapement (Anchor) Parameters
 //
 // how many teeth the escapement spans: choose a 4.5 tooth span for a wide pendulum swing, or an 11.5 tooth span for a narrow swing. It is generally accepted that a 7.5 tooth span gives the most desirable results in practice for a 30 tooth escape wheel.
-toothSpan=6.5;              // how many teeth the escapement spans
+toothSpan=5.5;              // how many teeth the escapement spans
 faceAngle=6;                // how many degrees the impulse face covers seen from the hub of the escapement wheel
-armAngle=16;                // angle of the escapement's arms
+armAngle=22;                // angle of the escapement's arms
 maxSwing=8;             	// maximum swing of the escapement, in degrees
 armWidth=4;             	// width of the escapement's arms
-escapeHubWidth=10;            	// width of the escapement's hub
+escapeHubDiam=11;            	// width of the escapement's hub
 escapeWheelBore = nail_16d_diam + 0.05;
-escapeThickness = 6;
+escapeThickness = 4;
 escapePinionThick = 6;
-hubHeight=escapeThickness + 1;          // thickness of the escapement's hub
+hubHeight=escapeThickness;          // thickness of the escapement's hub
 
 // Escapement Wheel Parameters
 //
-escapeNumberTeeth=24;           // number of teeth in the escapement wheel
-escapeToothLength=16;           // length of the tooth along longest face and to inner radius of the wheel
-escapeToothLean=25;            	// how much the tooth leans over, clockwise, in degrees
+escapeNumberTeeth=20;           // number of teeth in the escapement wheel
+escapeToothLength=15;           // length of the tooth along longest face and to inner radius of the wheel
+escapeToothLean=30;            	// how much the tooth leans over, clockwise, in degrees
 escapeToothSharpness=10;       	// the angle between the two side of each tooth
-escapeClubSize=0.1;        	// relative size of the club on the teeth
-escapeClubAngle=22.5;          	// impulse face angle
+escapeClubSize=0.15;        	// relative size of the club on the teeth
+escapeClubAngle=20;          	// impulse face angle
 
 escapeRadius = axle_separation / (2* cos(180/escapeNumberTeeth*toothSpan)); // escapement wheel radius, including the teeth
 
@@ -64,26 +63,26 @@ anchorBore=nail_16d_diam + 0.05; // Diameter of the escapement (anchor) bore
 
 // Pendulum stuff
 pendulumKink = 0;
-pendulumLength=80;         	// length of the pendulum
-pendulumWidth=24;     	// width of the pendulum
+pendulumLength=50;         	// length of the pendulum
+pendulumWidth=2*armWidth;     	// width of the pendulum
 //pendulumHeight=5;  // height of the pendulum
 //snapFitHeight = 4; //??
 
 // Animation parameters:
 //
 //wheel_phase_angle = 5;  //faceAngle=4
-wheel_phase = 0.31;  // num teeth, faceAngle=6
+wheel_phase = 0.07;  // num teeth, faceAngle=6
+time = 0.50;
 function anchor_angle(t) = maxSwing * sin(t * 360);
 //function inv_anchor_angle(a) = asin(a
 
 
 
 //animated();
-
 //escapeWheel();
 //anchor(anchorBore/2,0);
 //assembledPivotBelow();
-//assembledPivotAbove();
+///assembledPivotAbove();
 
 //translate([2.5*escapeRadius,0,0])
 laidOutToPrint();
@@ -111,7 +110,6 @@ module assembledPivotAbove()
 
 module assembledPivotBelow()
 {
-    //time = 0.25;
     //rotate([0,0,(time + wheel_phase)*360/escapeNumberTeeth])
     escapeWheel();
 
@@ -128,7 +126,7 @@ module laidOutToPrint()
 {
     escapeWheel();
 
-    translate([0,1.3*axle_separation,0])
+    translate([0,1.2*axle_separation,0])
     anchorPendulum(anchorBore/2,0);
 }
 
@@ -149,7 +147,7 @@ module anchor(pin_radius,sleeve_level)
             armWidth,
             escapeNumberTeeth,
             toothSpan,
-            escapeHubWidth,
+            anchorHubDiam/2,
             hubHeight,
             bore_radius,
             false, //negativeSpace,
@@ -176,7 +174,11 @@ module anchorPendulum(pin_radius,sleeve_level)
                 {
                     // Long member between hub and weight
                     translate([bore_radius,-armWidth,0])
+                    {
                     cube([pendulumLength-(bore_radius),2*armWidth,girder_thick]);
+                    cube([pendulumLength-(bore_radius),girder_thick,hubHeight]);
+                    cube([5,2*armWidth,hubHeight]);
+                    }
 
                     if(0)
                     {
@@ -189,20 +191,28 @@ module anchorPendulum(pin_radius,sleeve_level)
                     }
                     else
                     {
+                        // Top mount hole
+                        translate([8,0,0])
+                        cylinder(h=hubHeight,d=pendulumWidth);
+                        
                         // Circular weight
                         translate([pendulumLength,0,0])
                         cylinder(h=hubHeight,d=pendulumWidth);
                     }
                 }
                 
-                // Mounting hole
+                // Top mount hole
+                translate([8,0,0])
+                cylinder(h=3*hubHeight,d=nail_6d_diam,center=true);
+                
+                // Bottom mounting hole
                 translate([pendulumLength,0,0])
                 cylinder(h=3*hubHeight,d=nail_6d_diam,center=true);
             }
         }
 
         // Pivot
-        ring(sleeve_radius,bore_radius,escapeThickness+sleeve_extension+spacer);
+        //ring(sleeve_radius,bore_radius,escapeThickness+sleeve_extension+spacer);
 
         escapement(
             escapeRadius,
@@ -212,7 +222,7 @@ module anchorPendulum(pin_radius,sleeve_level)
             armWidth,
             escapeNumberTeeth,
             toothSpan,
-            escapeHubWidth,
+            anchorHubDiam/2,
             hubHeight,
             bore_radius,
             false, //negativeSpace,
@@ -237,8 +247,8 @@ module escapeWheel()
         union()
         {
             escapementWheel(escapeRadius,
-                escapeRimWidth, //rimWidth,
-                6, //drumHeight,
+                escapeRimWidth,
+                5, //drumHeight,
                 escapeThickness,
                 escapeNumberTeeth,
                 escapeToothLength,
@@ -251,10 +261,12 @@ module escapeWheel()
                 escapeClubSize,
                 escapeClubAngle);
 
+            /*
             // DXF file origin is that of a Z30 wheel
             translate([-15 -5, 0, escapeThickness*.9999])
             linear_extrude(escapePinionThick)
             import("Cycloid-M1-Z30Z10 Pinion.dxf");
+            */
         }
 
         // Bore
@@ -272,57 +284,53 @@ module pendulumPivotsAbove()
 
 module animated()
 {
-    projection()
-    rotate([0,0,180])
-    {
-        // Wheel and coaxial pinion
-        unlock = 0.005;   // Wheel unlocks at this time / pendulum angle
-        teeth = 1 / 4 * lookup( 2 * $t, [
-            [0,         -1  ],
-            [  unlock,  0  ],
-            [1-unlock,  0  ],
-            [1+unlock,  2  ],
-            [2-unlock,  2  ],
-            [2+unlock,  3  ]]);
-        echo("t=",360*$t," pendulum=",anchor_angle($t)," teeth=",teeth);
-        rotate([0,0, -360/escapeNumberTeeth * (wheel_phase+teeth)])
-		escapementWheel(escapeRadius,
-			escapeRimWidth, //rimWidth,
-			0, //drumHeight,
-			escapeThickness,
-			escapeNumberTeeth,
-			escapeToothLength,
-			escapeToothLean,
-			escapeToothSharpness,
-			numberSpokes,
-			spokeWidth,
-			0, //small_addendum_radius
-			0, //bore_radius, see below
-			escapeClubSize,
-			escapeClubAngle);
+    // Wheel and coaxial pinion
+    unlock = 0.08;   // Wheel unlocks at this time / pendulum angle
+    teeth = 1 / 4 * lookup( 2 * $t, [
+        [0,         -1  ],
+        [  unlock,  0  ],
+        [1-unlock,  0  ],
+        [1+unlock,  2  ],
+        [2-unlock,  2  ],
+        [2+unlock,  4  ]]);
+    echo("t=",360*$t," pendulum=",anchor_angle($t)," teeth=",teeth);
+    rotate([0,0, -360/escapeNumberTeeth * (wheel_phase+teeth)])
+    escapementWheel(escapeRadius,
+        escapeRimWidth, //rimWidth,
+        0, //drumHeight,
+        escapeThickness,
+        escapeNumberTeeth,
+        escapeToothLength,
+        escapeToothLean,
+        escapeToothSharpness,
+        numberSpokes,
+        spokeWidth,
+        0, //small_addendum_radius
+        0, //bore_radius, see below
+        escapeClubSize,
+        escapeClubAngle);
 
-        placeEscapement(180,escapeRadius,escapeNumberTeeth,toothSpan)
-        rotate([0,0, anchor_angle($t)])
-        {
-            escapement(
-                escapeRadius,
-                escapeThickness,
-                faceAngle,
-                armAngle,
-                armWidth,
-                escapeNumberTeeth,
-                toothSpan,
-                armWidth, //escapeHubWidth,
-                hubHeight,
-                1, //bore_radius,
-                false, //negativeSpace,
-                negativeMargin,
-                maxSwing,
-                entryPalletAngle=45-escapeToothLean+escapeClubAngle,
-                exitPalletAngle=45-escapeToothLean+escapeClubAngle);
-            
-            pendulumPivotsAbove();
-        }
+    placeEscapement(180,escapeRadius,escapeNumberTeeth,toothSpan)
+    rotate([0,0, anchor_angle($t)])
+    {
+        escapement(
+            escapeRadius,
+            escapeThickness,
+            faceAngle,
+            armAngle,
+            armWidth,
+            escapeNumberTeeth,
+            toothSpan,
+            armWidth, //escapeHubWidth,
+            hubHeight,
+            1, //bore_radius,
+            false, //negativeSpace,
+            negativeMargin,
+            maxSwing,
+            entryPalletAngle=45-escapeToothLean+escapeClubAngle,
+            exitPalletAngle=45-escapeToothLean+escapeClubAngle);
+        
+        pendulumPivotsAbove();
     }
 }
 
