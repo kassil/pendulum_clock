@@ -1,5 +1,7 @@
 use <MCAD/involute_gears.scad>
 
+negativeMargin = 0.01;
+
 // Spokes for gears and wheels.
 module spokes(spokes_diam = 1, hub_diam = .25, height, width, num_spokes=5, center=false)
 {
@@ -91,12 +93,10 @@ module involuteWheelDrum(teeth, wheelHeight, pitch, drumHeight, boreDiam)
 
 module involutePinionWheel(wheelTeeth, pinionTeeth, wheelHeight, pinionHeight, wheelPitch, pinionPitch, boreDiam)
 {
-    wheelRimDiam = wheelPitch * (wheelTeeth - 2.5) - 3;  // Approximate
-    pinionOutDiam = pinionPitch * (pinionTeeth + 2);  // Approximate
+    wheelRimDiam = wheelPitch * (wheelTeeth - 2.5) - 4;  // Smaller than dedendum
+    pinionOutDiam = pinionPitch * (pinionTeeth + 2);  // Addendum
     isSpokes = wheelTeeth*wheelPitch/pinionTeeth/pinionPitch > 3 ? 1 : 0;
     difference()
-    {
-    union()
     {
         union()
         {
@@ -117,25 +117,22 @@ module involutePinionWheel(wheelTeeth, pinionTeeth, wheelHeight, pinionHeight, w
                 spokes(spokes_diam=wheelRimDiam, hub_diam=pinionOutDiam, height = wheelHeight, width=1, num_spokes=5);
             
             // Hub
-            cylinder(h=wheelHeight, d=pinionOutDiam);
-        }
-        
-        
-        translate([0,0,wheelHeight])
-        scale([1,1,pinionHeight])
-        gear(number_of_teeth=pinionTeeth, circular_pitch=pinionPitch * 180,
-            //circles=6,
-            //flat=true,
-            rim_thickness = 1,
-            //rim_width=2,
-            gear_thickness = 1,
-            hub_thickness=1,
-            hub_diameter=pinionOutDiam,
-            bore_diameter=0,
-            clearance = 0.25,  // ISO metric root
-            pressure_angle=20);
+            cylinder(h=wheelHeight, d=pinionOutDiam+negativeMargin);
 
-    }
+            translate([0,0,wheelHeight-negativeMargin])
+            scale([1,1,pinionHeight+negativeMargin])
+            gear(number_of_teeth=pinionTeeth, circular_pitch=pinionPitch * 180,
+                //circles=6,
+                //flat=true,
+                rim_thickness = 1,
+                //rim_width=2,
+                gear_thickness = 1,
+                hub_thickness=1,
+                hub_diameter=pinionOutDiam,
+                bore_diameter=0,
+                clearance = 0.25,  // ISO metric root
+                pressure_angle=20);
+        }
 		// Bore
 		cylinder(h=3*(wheelHeight+pinionHeight), d=boreDiam, center=true);
     }

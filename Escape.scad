@@ -10,8 +10,6 @@ include <Locations.scad>
 include <Hardware.scad>
 use <rounded.scad>
 
-echo("Escape axle distance:", escapeAxleDist);
-
 //Escape_pinionWheel();
 
 //animated();
@@ -63,6 +61,10 @@ wheel_phase = 0.07;  // num teeth, faceAngle=6
 time = 0.50;
 function anchor_angle(t) = maxSwing * sin(t * 360);
 //function inv_anchor_angle(a) = asin(a
+
+
+echo("Escape axle distance:", escapeAxleDist);
+echo("Escape radius:",escapeRadius);
 
 
 
