@@ -23,6 +23,8 @@ outer_corner_holes_diam = [
     m5_male_dia,m5_male_dia,
 ];
 
+escape_axle_posn = [  0,       72];
+pendulum_axle_posn = [  0,  122.28];
 
 // For all frame components
 thick = 2.5;
