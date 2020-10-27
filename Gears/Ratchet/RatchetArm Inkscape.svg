@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="30mm"
+   height="53mm"
+   viewBox="0 -55 30 53"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="RatchetArm Inkscape.svg"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>OpenSCAD Model</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1018"
+     id="namedview8"
+     showgrid="true"
+     inkscape:zoom="6.0009573"
+     inkscape:cx="37.338582"
+     inkscape:cy="111.8798"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6"
+     showguides="true"
+     inkscape:document-units="mm"
+     inkscape:snap-grids="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid14" />
+  </sodipodi:namedview>
+  <title
+     id="title2">OpenSCAD Model</title>
+  <path
+     id="path4"
+     style="fill:none;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none"
+     d="m 18.459229,-2.5473472 c 2.726929,-0.5065246 6.678549,-0.3662454 8.772991,-4.6197901 2.094441,-4.2535447 3.365609,-12.3652447 2.167904,-18.4845107 C 27.611202,-35.967551 20.334101,-45.131408 10.92595,-49.720266 7.2917151,-51.495758 3.6407125,-53.237533 0,-55 v 3 c 3.9229117,1.960382 7.9659381,3.691667 11.796899,5.828716 8.549062,4.992782 14.61018,13.890006 15.300566,23.762071 0.191491,3.391358 -1.01122,7.907868 -1.794787,10.669169 -0.783567,2.7613021 -1.149025,3.3040505 -5.398276,3.6670778 -4.249251,0.3630274 -10.8489889,0.6958241 -10.8208728,3.4578004 0.028116,2.7619764 6.6487708,2.5743432 9.3756998,2.0678186 z"
+     sodipodi:nodetypes="zzcccccczzzz" />
+</svg>

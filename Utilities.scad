@@ -26,20 +26,6 @@ module ring(
 	}
 }
 
-// Spokes for gears and wheels.
-module spokes(spokes_diam = 1, hub_diam = .25, height, width, num_spokes=5, center=false)
-{
-    for(i = [0 : 1 : num_spokes])
-    {
-        rotate([0,0, 360 / num_spokes * i])
-        linear_extrude(height, center=center)
-        translate([0, hub_diam])
-        scale([width, (spokes_diam/2 - hub_diam)])
-        translate([-0.5,0])
-        square(1, center = false);
-    }
-}
-
 module draw_bosses(centres, diam, h)
 {
     // Draw a boss around every hole

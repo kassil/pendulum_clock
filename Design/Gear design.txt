@@ -1,4 +1,38 @@
-﻿Input is escapement (second-hand) shaft rotates once every 60 seconds
+﻿Pendulum length / period 2 pi sqrt(L/g)
+
+Length 55.9 cm, Period 1.500 s
+
+Escapement has 20 tooth, pendulum period 1.5 s, rotate 1/30 seconds
+
+No seconds shaft
+
+Minute shaft 120:1
+
+60 x 50 x 40 
+------------
+10 x 10 x 10
+
+Motion work/hour shaft 12:1
+
+ 40 x 30
+--------
+ 10 x 10
+
+Weight shaft ??:1
+
+
+
+
+
+
+
+
+Pendulum length / period 2 pi sqrt(L/g)
+
+Length 1 m, Period 2.006 s
+
+
+Input is escapement (second-hand) shaft rotates once every 60 seconds
 
 Involute three-stage minute-hand reduction:
 
@@ -38,7 +72,7 @@ Cycloid two-stage hour-hand 12:1
 
  40 x 30
 --------
- 10 x  10
+ 10 x 10
 
 Arranging the three main shafts:
 
