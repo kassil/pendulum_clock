@@ -4,8 +4,8 @@ include <Hardware.scad>
 use <myClockworkLibrary.scad>
 
 // Quality settings
-$fs = 2;                    // minimum angle of an arc fragment
-$fa = 3;                    // minimum size of an arc fragment
+$fs = 0.5;                  // minimum size of an arc fragment
+$fa = 360/128;              // minimum angle of an arc fragment
 
 // When a pair of gears are meshed so that their reference circles are in contact, the center distance (a) is half the sum total of their reference diameters.
 // a = ( d1 + d2 ) / 2
@@ -78,33 +78,33 @@ translate([pitch4*(escapePinionTeeth + wheelTeeth4)/2, 0, ph])
     //scale([1,1,-1])
     {
         rotate([0,0,time*360/6/5])
-        %involutePinionWheel(wheelTeeth3, pinionTeeth3, wh, ph, pitch3, pitch2, nail_16d_diam);
+        involutePinionWheel(wheelTeeth3, pinionTeeth3, wh, ph, pitch3, pitch2, nail_16d_diam);
 
         rotate([0,0,180])
         translate([pitch2*(pinionTeeth3 + wheelTeeth2)/2, 0, ph])
         {
             // Minute hand
             rotate([0,0,time*360/6/5/4])
-            %involutePinionWheel(wheelTeeth2, pinionTeeth2, wh, ph, pitch2, pitchM, nail_16d_diam);
+            involutePinionWheel(wheelTeeth2, pinionTeeth2, wh, ph, pitch2, pitchM, nail_16d_diam);
 
             rotate([0,0,180])
             translate([pitchM*(pinionTeeth2 + wheelTeethM)/2, 0, ph])
             {
                 rotate([0,0,time*360/6/5/4/4])
-				%involutePinionWheel(wheelTeethM, pinionTeethM, wh, ph, pitchM, pitchH, nail_16d_diam);
+				involutePinionWheel(wheelTeethM, pinionTeethM, wh, ph, pitchM, pitchH, nail_16d_diam);
 
 				rotate([0,0,180])
 				translate([pitchH*(pinionTeethM + wheelTeethH)/2, 0, ph])
 				{
                     // Hour hand
 					rotate([0,0,time*360/6/5/4/4/3])
-					%involutePinionWheel(wheelTeethH, pinionTeethH, wh, ph, pitchH, pitch1, nail_16d_diam);
+					involutePinionWheel(wheelTeethH, pinionTeethH, wh, ph, pitchH, pitch1, nail_16d_diam);
 				
                     rotate([0,0,180])
 					translate([pitch1*(pinionTeethH + wheelTeeth1)/2, 0, ph])
 					{
                         // Cable drum
-						%involuteWheelDrum(wheelTeeth1, wh, pitch1, 8, nail_16d_diam);
+						involuteWheelDrum(wheelTeeth1, wh, pitch1, 8, nail_16d_diam);
 					}
                 }
             }

@@ -17,6 +17,10 @@ module spokes(spokes_diam = 1, hub_diam = .25, height, width, num_spokes=5, cent
 }
 
 // Drum for ropes / winches
+// radius: outer radius
+// rimWidth: 
+// drumHeight: overall height
+// 
 module drum(
 	radius,
 	rimWidth,
@@ -25,19 +29,28 @@ module drum(
 	holeRadius=0,
 	holeRotate=0)
 {
-	flangeWidth=min(drumHeight/3,rimWidth/2);
+	flangeWidth=min(drumHeight*3/4,rimWidth*3/4);
+    flangeHeight = drumHeight/6;
+    radius_inner = radius-flangeWidth;
+    
+    lipHeight = min(0.5, flangeHeight/2);
 
 	difference()		// makes the center hollow & includes holes to attach string
 	 {
 		union() 	// builds the drum with flanges
 		{
-			cylinder(flangeWidth,radius,radius-flangeWidth);
+			cylinder(lipHeight,r=radius);
+            translate([0,0,lipHeight])
+			cylinder(flangeHeight-lipHeight,radius,radius_inner);
 	
-			translate([0,0,flangeWidth])
-			cylinder(drumHeight-2*flangeWidth,radius-flangeWidth,radius-flangeWidth);
+			translate([0,0,flangeHeight])
+			cylinder(h=drumHeight-2*flangeHeight,r=radius_inner);
 	
-			translate([0,0,drumHeight-flangeWidth])
-			cylinder(flangeWidth,radius-flangeWidth,radius);
+			translate([0,0,drumHeight-flangeHeight])
+			cylinder(flangeHeight-lipHeight,radius_inner,radius);
+
+			translate([0,0,drumHeight-lipHeight])
+			cylinder(lipHeight,r=radius);
 		}
 
 		translate([0,0,-1])
@@ -56,7 +69,8 @@ module drum(
 
 module involuteWheelDrum(teeth, wheelHeight, pitch, drumHeight, boreDiam)
 {
-    wheelRimDiam = pitch * (teeth - 2.5) - 8;  // Approximate
+    rimWidth = 7;
+    wheelRimDiam = pitch * (teeth - 2.5) - 2*rimWidth;  // Approximate
     isSpokes = wheelRimDiam/boreDiam > 3 ? 1 : 0;
     difference()
     {
@@ -83,7 +97,7 @@ module involuteWheelDrum(teeth, wheelHeight, pitch, drumHeight, boreDiam)
 
             rootRadius=pitch*(teeth-2.5)/2;
             translate([0,0,wheelHeight])
-            drum(radius=rootRadius, rimWidth=8, drumHeight=drumHeight, numberHoles=2, holeRadius=1.5, holeRotate=0);
+            drum(radius=rootRadius, rimWidth=rimWidth, drumHeight=drumHeight, numberHoles=2, holeRadius=1.2, holeRotate=0);
         }
         
 		// Bore
@@ -93,7 +107,7 @@ module involuteWheelDrum(teeth, wheelHeight, pitch, drumHeight, boreDiam)
 
 module involutePinionWheel(wheelTeeth, pinionTeeth, wheelHeight, pinionHeight, wheelPitch, pinionPitch, boreDiam)
 {
-    wheelRimDiam = wheelPitch * (wheelTeeth - 2.5) - 4;  // Smaller than dedendum
+    wheelRimDiam = wheelPitch * (wheelTeeth - 2.5) - 6;  // Smaller than dedendum
     pinionOutDiam = pinionPitch * (pinionTeeth + 2);  // Addendum
     isSpokes = wheelTeeth*wheelPitch/pinionTeeth/pinionPitch > 3 ? 1 : 0;
     difference()
@@ -114,7 +128,7 @@ module involutePinionWheel(wheelTeeth, pinionTeeth, wheelHeight, pinionHeight, w
                 pressure_angle=20);
 
             if(isSpokes)
-                spokes(spokes_diam=wheelRimDiam, hub_diam=pinionOutDiam, height = wheelHeight, width=1, num_spokes=5);
+                spokes(spokes_diam=wheelRimDiam, hub_diam=pinionOutDiam, height = wheelHeight, width=1.25, num_spokes=5);
             
             // Hub
             cylinder(h=wheelHeight, d=pinionOutDiam+negativeMargin);

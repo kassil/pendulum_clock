@@ -10,6 +10,10 @@ include <Locations.scad>
 include <Hardware.scad>
 use <rounded.scad>
 
+// Quality settings
+$fs = 0.5;                  // minimum size of an arc fragment
+$fa = 360/128;              // minimum angle of an arc fragment
+
 //Escape_pinionWheel();
 
 //animated();
@@ -26,15 +30,16 @@ laidOutToPrint();
 // Parameters used by all local modules
 //
 sleeveThickness=2;	// thickness of the sleeves fitting over the pins, or over each other
-clearance=0.10;			// clearance between pin and sleeve, or between sleeve and sleeve
-zClearance=0.5;
+clearance=0.05;			// clearance between pin and sleeve, or between sleeve and sleeve
+zClearance=0.25;
 
 // how many teeth the escapement spans: choose a 4.5 tooth span for a wide pendulum swing, or an 11.5 tooth span for a narrow swing. It is generally accepted that a 7.5 tooth span gives the most desirable results in practice for a 30 tooth escape wheel.
 escapeNumberTeeth=20;           // number of teeth in the escapement wheel
 escapeToothSpan=5.5;              // how many teeth the escapement spans
 
 // Distance between anchor and wheel centres:
-escapeAxleDist = norm(pendulum_axle_posn - escape_axle_posn);
+//escapeAxleDist = norm(pendulum_axle_posn - escape_axle_posn);
+escapeAxleDist = 50;
 // Formula relates distance between centres to the escape wheel overall radius:
 // y = 2*escapeRadius*cos(180/escapeNumberTeeth*escapeToothSpan);
 // Escapement wheel radius, including the teeth:
@@ -72,13 +77,18 @@ echo("Escape radius:",escapeRadius);
 
 module Escape_pinionWheel()
 {
+    wheelTeeth4 = 60;		// Fourth wheel which turns once per (half?) minute
+    escapePinionTeeth = 10;
+    pitch4 = 2*escapeAxleDist / (wheelTeeth4 + escapePinionTeeth);
+    echo("Escape pinion pitch:",pitch4);
+    
 	// Escapement Wheel Parameters
 	//
-	escapeRimWidth=5;           // width of the escapement wheel's rim
+	escapeRimWidth=4;           // width of the escapement wheel's rim
 	numberSpokes=5;             // number of spokes in the escapement wheel
-	spokeWidth=1;               // width of the escapement wheel's spokes
+	spokeWidth=1.25;            // width of the escapement wheel's spokes
 	drumHeight = 0;
-	small_addendum_radius=11.1 / 2;
+	small_addendum_radius=1.11 * escapePinionTeeth * pitch4 / 2;
 	escapeToothLength=15;           // length of the tooth along longest face and to inner radius of the wheel
 	escapeToothSharpness=10;       	// the angle between the two side of each tooth
 	escapeWheelBore = nail_6d_diam + 0.05;
@@ -104,10 +114,10 @@ module Escape_pinionWheel()
                 escapeClubSize,
                 escapeClubAngle);
 
-            // DXF file origin is that of a Z30 wheel
-            translate([-15 -5, 0, escapeWheelThickness - negativeMargin])
+            // DXF file origin is that of a Z60 wheel
+            translate([-50, 0, escapeWheelThickness - negativeMargin])
             linear_extrude(escapePinionThick)
-            import("Gears/Cycloid-M1-Z30Z10 Pinion.dxf");
+            import("Gears/Cycloid-M1.429-Z60Z10 Pinion 50mm centre.dxf");
         }
 
         // Bore
@@ -272,7 +282,7 @@ module assembledPivotBelow(time)
 
 module laidOutToPrint()
 {
-    Escape_pinionWheel();
+    !Escape_pinionWheel();
 
     rotate([0,180,0]) // Flat face on bed
     translate([0,1.2*escapeAxleDist,-anchorThickness])
