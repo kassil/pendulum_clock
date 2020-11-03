@@ -59,19 +59,3 @@ module arm_square_ends(p1, p2, width, height) {
         p2 - width/2 * ortho,
         p2 + width/2 * ortho]);
 }
-
-
-// Draw a rectangular 3D member between two points.
-// TODO three dimensional inputs!
-module arm_square_ends(points, width, height) {
-    
-    disp = concat(p2 - p1, 0);
-    dir = disp / norm(disp);
-    ortho = cross([0,0,1], dir);
-    linear_extrude(height)
-    polygon([
-        p1 + width/2 * ortho,
-        p1 - width/2 * ortho,
-        p2 - width/2 * ortho,
-        p2 + width/2 * ortho]);
-}

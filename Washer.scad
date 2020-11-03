@@ -1,15 +1,22 @@
 include <Locations.scad>
 
-LOOSE = 0.05;
+$fs = 0.2;                  // minimum size of an arc fragment
+$fa = 360/128;              // minimum angle of an arc fragment
 
-washer(6, nail_16d_diam+0.05, 9);
+LOOSE = 0.00;
 
-translate([15,0,0])
-washer(1, nail_6d_diam+0.05, 6);
-
+washer(8, 3.95, 6.20);
 
 if(0)
 {
+washer(2, nail_16d_diam, 10);
+
+translate([15,0,0])
+washer(1, nail_16d_diam, 10);
+
+translate([30,0,0])
+washer(1, nail_16d_diam, 10);
+
 // In front of second wheel Z80
 translate([0,0,0])
 washer(1.25, 12.15, 16, true);

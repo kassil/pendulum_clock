@@ -1,4 +1,15 @@
-﻿Pendulum length / period 2 pi sqrt(L/g)
+﻿CYCLOID GEAR DESIGN
+
+
+
+??????????
+
+
+
+
+
+
+Pendulum length / period 2 pi sqrt(L/g)
 
 Length 55.9 cm, Period 1.500 s
 
@@ -19,8 +30,6 @@ Motion work/hour shaft 12:1
  10 x 10
 
 Weight shaft ??:1
-
-
 
 
 

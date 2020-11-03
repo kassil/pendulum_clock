@@ -71,40 +71,40 @@ rotate([0,0,time*360])
 translate([pitch4*(escapePinionTeeth + wheelTeeth4)/2, 0, ph])
 {
     rotate([0,0,time*360/6])
-    involutePinionWheel(wheelTeeth4, pinionTeeth4, wh, ph, pitch4, pitch3, nail_16d_diam);
-    
+    %cycloidPinionWheel(wheelTeeth4, escapePinionTeeth, pinionTeeth4, wheelTeeth3, wh, ph, pitch4, pitch3, nail_16d_diam);
+
     rotate([0,0,180])
     translate([pitch3*(pinionTeeth4 + wheelTeeth3)/2, 0, ph])
     //scale([1,1,-1])
     {
         rotate([0,0,time*360/6/5])
-        involutePinionWheel(wheelTeeth3, pinionTeeth3, wh, ph, pitch3, pitch2, nail_16d_diam);
+        %cycloidPinionWheel(wheelTeeth3, pinionTeeth4, pinionTeeth3, wheelTeeth2, wh, ph, pitch3, pitch2, nail_16d_diam);
 
         rotate([0,0,180])
         translate([pitch2*(pinionTeeth3 + wheelTeeth2)/2, 0, ph])
         {
             // Minute hand
             rotate([0,0,time*360/6/5/4])
-            involutePinionWheel(wheelTeeth2, pinionTeeth2, wh, ph, pitch2, pitchM, nail_16d_diam);
+            %cycloidPinionWheel(wheelTeeth2, pinionTeeth3, pinionTeeth2, wheelTeethM, wh, ph, pitch2, pitchM, nail_16d_diam);
 
             rotate([0,0,180])
             translate([pitchM*(pinionTeeth2 + wheelTeethM)/2, 0, ph])
             {
                 rotate([0,0,time*360/6/5/4/4])
-				involutePinionWheel(wheelTeethM, pinionTeethM, wh, ph, pitchM, pitchH, nail_16d_diam);
+				%cycloidPinionWheel(wheelTeethM, pinionTeeth2, pinionTeethM, wheelTeethH, wh, ph, pitchM, pitchH, nail_16d_diam);
 
 				rotate([0,0,180])
 				translate([pitchH*(pinionTeethM + wheelTeethH)/2, 0, ph])
 				{
                     // Hour hand
 					rotate([0,0,time*360/6/5/4/4/3])
-					involutePinionWheel(wheelTeethH, pinionTeethH, wh, ph, pitchH, pitch1, nail_16d_diam);
+					%cycloidPinionWheel(wheelTeethH, pinionTeethM, pinionTeethH, wheelTeeth1, wh, ph, pitchH, pitch1, nail_16d_diam);
 				
                     rotate([0,0,180])
 					translate([pitch1*(pinionTeethH + wheelTeeth1)/2, 0, ph])
 					{
                         // Cable drum
-						involuteWheelDrum(wheelTeeth1, wh, pitch1, 8, nail_16d_diam);
+						!cycloidWheelDrum(wheelTeeth1, pinionTeethH, wh, pitch1, /*drumHeight*/8, nail_16d_diam);
 					}
                 }
             }
