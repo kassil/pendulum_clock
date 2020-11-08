@@ -1,3 +1,10 @@
+
+// From inches to mm
+function inches(in) = 25.4 * in;
+
+// From mm to inches
+function mm_to_inches(mm) = mm / 25.4;
+
 /*
 
 

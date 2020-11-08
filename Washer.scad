@@ -3,16 +3,54 @@ include <Locations.scad>
 $fs = 0.2;                  // minimum size of an arc fragment
 $fa = 360/128;              // minimum angle of an arc fragment
 
-LOOSE = 0.00;
+LOOSE = 0.03;
 
-washer(8, 3.95, 6.20);
+d = 8;
+space = d + 4;
+
+washer(1, nail_16d_diam, d);
+translate([space,0,0])
+{
+    washer(1, nail_16d_diam, d);
+    translate([space,0,0])
+        washer(1, nail_16d_diam, d);
+}
+translate([0,space,0])
+{
+    washer(2, nail_16d_diam, d);
+    translate([space,0,0])
+    {
+        washer(2, nail_16d_diam, d);
+        translate([space,0,0])
+        {
+            washer(2, nail_16d_diam, d);
+            translate([space,0,0])
+            {
+                washer(2, nail_16d_diam, d);
+            }
+        }
+    }
+}
+translate([0,2*space,0])
+{
+    washer(4, nail_16d_diam, d);
+    translate([space,0,0])
+    {
+        washer(4, nail_16d_diam, d);
+        translate([space,0,0])
+        {
+            washer(4, nail_16d_diam, d);
+            translate([space,0,0])
+            {
+                washer(4, nail_16d_diam, d);
+            }
+        }
+    }
+}
 
 if(0)
 {
-washer(2, nail_16d_diam, 10);
-
-translate([15,0,0])
-washer(1, nail_16d_diam, 10);
+washer(8, 3.95, 6.20);
 
 translate([30,0,0])
 washer(1, nail_16d_diam, 10);

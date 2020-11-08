@@ -22,6 +22,8 @@ time = 0;
 
 wh = 4; ph = wh + 2;
 
+// Pendulum period 1.5 sec
+// Escape wheel (1.5 sec x 20T)/rev = 0.5 min/rev
 escapeTeeth = 20;
 escapePinionTeeth = 10;		// Escape wheel
 escapeToothSpan=5.5;              // how many teeth the escapement spans
@@ -33,26 +35,32 @@ escapeWheelRadius = 0.5 * axle_distance / cos(180/escapeTeeth*escapeToothSpan);
 
 escapePitch = 2*escapeWheelRadius / escapeTeeth;  // Simulate escape wheel
 
+// Fourth wheel: 3 min/rev
 wheelTeeth4 = 60;		// Fourth wheel which turns once per (half?) minute
 pinionTeeth4 = 10;
 pitch4 = 2*axle_distance / (wheelTeeth4 + escapePinionTeeth);
 
+// Third wheel: 15 min/rev
 wheelTeeth3 = 50;		// Third wheel which drives the pinion of the fourth wheel
 pinionTeeth3 = 10;
 pitch3 = 2*axle_distance / (wheelTeeth3 + pinionTeeth4);
 
+// Second wheel: 1 hour/rev (minute hand)
 wheelTeeth2 = 40;		// Center or Second wheel which turns once per hour
 pinionTeeth2 = 10;
 pitch2 = 2*axle_distance / (wheelTeeth2 + pinionTeeth3);
 
+// Motionwork wheel M: 4 hour/rev
 wheelTeethM = 40;		// Motionwork minute wheel
 pinionTeethM = 10;
 pitchM = 2*axle_distance / (wheelTeethM + pinionTeeth2);
 
+// Hour wheel: 12 hour/rev
 wheelTeethH = 30;		// Motionwork hour wheel
 pinionTeethH = 10;
 pitchH = 2*axle_distance / (wheelTeethH + pinionTeethM);
 
+// Drum: 36 hour/rev
 wheelTeeth1 = 30;       // First or Great wheel attached and ratcheted to the main spring, or cable, barrel
 pitch1 = 2*axle_distance / (wheelTeeth1 + pinionTeethH);
 
